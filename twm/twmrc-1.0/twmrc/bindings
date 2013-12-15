@@ -1,0 +1,28 @@
+# $Fuller: myprograms/twmrc/bindings,v 1.1 2002/07/08 07:45:15 fullermd Exp $
+
+# Key bindings
+# Meece
+Button1 = : root : f.menu "main"
+Button2 = : root : f.menu "xlock1"
+Button3 = : root : f.menu "twmstuff"
+
+Button1 = : title : f.function "move-or-raise"
+Button2 = : title : f.raiselower
+Button3 = : title : f.lower
+
+Button1 = : icon : f.function "move-or-iconify"
+Button2 = : icon : f.iconify
+
+Button1 = : iconmgr : f.iconify
+Button2 = : iconmgr : f.raise
+Button3 = : iconmgr : f.lower
+
+Button1 = meta : window|icon : f.function "move-or-lower"
+Button2 = meta : window|icon : f.iconify
+Button3 = meta : window|icon : f.function "move-or-raise"
+
+# Keyboard
+"F1"	= : all : f.raise
+"F2"	= : all : f.lower
+"F3"	= : all : f.identify
+"F4"	= : all : f.move

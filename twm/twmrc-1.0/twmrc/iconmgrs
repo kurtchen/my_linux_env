@@ -1,0 +1,7 @@
+# $Fuller: myprograms/twmrc/iconmgrs,v 1.1 2002/07/08 07:45:15 fullermd Exp $
+
+IconManagers
+{
+	"mozilla-bin,Netscape,opera" "Browsers Icons" "-0+52" 1
+#	"Netscape"	"-0+52" 1
+}

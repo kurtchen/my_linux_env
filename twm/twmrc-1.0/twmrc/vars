@@ -1,0 +1,79 @@
+# $Fuller: myprograms/twmrc/vars,v 1.2 2002/07/08 08:09:55 fullermd Exp $
+# $XConsortium: system.twmrc,v 1.8 91/04/23 21:10:58 gildea Exp $
+# 
+# Default twm configuration file; needs to be kept small to conserve string
+# space in systems whose compilers don't handle medium-sized strings.
+#
+# Yeah right.  This file is now officially INSANE
+# Rewritten by Matt <fullermd@over-yonder.net> to do crazy things
+
+# Simple toggles
+DecorateTransients
+IconifyByUnmapping
+MaxWindowSize "1024x768"
+MoveDelta 3			# Minimum pixels to move before window starts moving
+NoBackingStore		# Don't use backing store for menus
+NoGrabServer		# Don't grab the server and eat CPU when doing stuff
+NoRaiseOnMove
+OpaqueMove
+RandomPlacement
+RestartPreviousState	# Store state across restarts
+ShowIconManager
+SortIconManager
+
+
+# Font settings
+IconFont "-adobe-helvetica-bold-r-normal--*-100-*-*-*-*-*-*"
+IconManagerFont "-adobe-helvetica-bold-r-normal--*-100-*-*-*"
+MenuFont "-adobe-helvetica-bold-r-normal--*-120-*-*-*-*-*-*"
+ResizeFont "-adobe-helvetica-bold-r-normal--*-120-*-*-*-*-*-*"
+TitleFont "-adobe-helvetica-bold-r-normal--*-120-*-*-*-*-*-*"
+
+
+# Stuff with lots of args
+Color
+{
+    BorderColor "slategrey"
+    DefaultBackground "maroon"
+    DefaultForeground "gray85"
+    TitleBackground "maroon"
+    TitleForeground "gray85"
+    MenuBackground "maroon"
+    MenuForeground "gray85"
+    MenuTitleBackground "gray70"
+    MenuTitleForeground "maroon"
+    IconBackground "maroon"
+    IconForeground "gray85"
+    IconBorderColor "gray85"
+    IconManagerBackground "maroon"
+    IconManagerForeground "gray85"
+}
+
+IconManagerDontShow 
+{
+	"xclock"
+	"xbiff"
+	"xbuffy"
+	"xeyes"
+	"xpostit"
+	"PostItNote"
+	"WorkSpaceManager"
+}
+
+NoBorder
+{
+	"WorkSpaceManager"
+}
+
+NoTitle
+{
+	"xclock"
+	"xbiff"
+	"xbuffy"
+	"TWM Icon Manager"
+	"xeyes"
+	"xpostit"
+	"PostItNote"
+	"xconsole"
+	"WorkSpaceManager"
+}

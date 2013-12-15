@@ -1,0 +1,13 @@
+# $Fuller: myprograms/twmrc/bindings.ctwm,v 1.1 2002/07/08 07:45:15 fullermd Exp $
+
+# ctwm-specific bindings
+# Workspace management key bindings
+# Zoom around
+"F1"	= meta : all : f.gotoworkspace "One"
+"F2"	= meta : all : f.gotoworkspace "Two"
+"F3"	= meta : all : f.gotoworkspace "Three"
+"F4"	= meta : all : f.gotoworkspace "Four"
+"F5"	= meta : all : f.gotoworkspace "Five"
+"F6"	= meta : all : f.gotoworkspace "Six"
+"F11"	= meta : all : f.occupy
+"F12"	= meta : all : f.toggleworkspacemgr

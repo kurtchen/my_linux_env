@@ -1,0 +1,39 @@
+# Makefile for .twmrc
+# $Fuller: myprograms/twmrc/xMakefile,v 1.8 2002/07/08 08:51:46 fullermd Exp $
+
+# This file is for Matt's .twmrc-generator.  This provides for several
+# possible cases.  We could be using twm, we could be using ctwm without
+# m4, or we could be using ctwm WITH m4.  Get it all setup.
+
+# You can change this for testing
+BASELOC ?= ${HOME}
+
+# twm
+TWM_FILES = vars functions iconmgrs bindings menus
+
+# ctwm
+CTWM_FILES = vars vars.ctwm functions iconmgrs bindings bindings.ctwm menus
+
+
+# 'menus' is generated on the fly
+menus: menus.pl menus.hash
+	@./menus.pl
+
+# Rebuild for TWM
+for_twm: ${BASELOC}/.twmrc
+
+${BASELOC}.twmrc: ${TWM_FILES}
+	@cat ${TWM_FILES} > ${BASELOC}/.twmrc
+
+# Rebuild for CTWM with no m4
+for_ctwm_nom4: ${BASELOC}/.ctwmrc
+
+${BASELOC}/.ctwmrc: ${CTWM_FILES}
+	@cat ${CTWM_FILES} > ${BASELOC}/.ctwmrc
+
+# Rebuild for CTWM with m4
+for_ctwm_m4: ${CTWM_FILES}
+	@cp /dev/null ${BASELOC}/.ctwmrc
+	@for file in ${CTWM_FILES}; do \
+		echo "include(.twm/$${file})dnl" >> ${BASELOC}/.ctwmrc; \
+	done

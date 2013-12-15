@@ -1,0 +1,28 @@
+# $Fuller: myprograms/twmrc/vars.ctwm,v 1.1 2002/07/08 07:45:15 fullermd Exp $
+
+# These are ctwm-specific vars
+DontPaintRootWindow             # let me set root window
+DontWarpCursorInWMap            # don't warp to window in wspcman
+WorkSpaceManagerGeometry        "120x72-86-0" 3
+StartInMapState                 # show map images in workspaceman
+ShowWorkSpaceManager            # start with workspace manager up
+
+
+WorkSpaces
+{
+	"One"   { "#686B9F" "white" "white" }
+	"Two"   { "#619AAE" "white" "blue" }
+	"Three" { "#727786" "white" "red" }
+	"Four"  { "#727786" "white" "red" }
+	"Five"  { "#727786" "white" "blue" }
+	"Six"   { "#727786" "white" "white" }
+}
+
+OccupyAll
+{
+	"xbiff"
+	"xbuffy"
+	"xpostit"
+	"xconsole"
+	"xclock"
+}

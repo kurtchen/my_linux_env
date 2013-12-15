@@ -1,0 +1,757 @@
+# .twmrc.menus
+# This is meant to be sourced from a Perl script
+# It contains a hash to generate TWM menus
+# Yes, my .twmrc is insanely large enough for this to be worth it
+# No, this isn't my entire menu structure, 80%+ of it is
+# worthless to anyone but me.
+# $Fuller: myprograms/twmrc/menus.hash,v 1.1 2002/07/08 07:45:15 fullermd Exp $
+
+%MENUS = (
+	'main' => {
+		title => 'Twm',
+		menuitem => {
+			winops => {
+				name => 'Window Ops',
+				command => 'f.menu "winops"',
+			},
+			mainxlock => {
+				name => 'Xlock',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode hyper -fg WHITE -bg BLACK &"',
+			},
+			xlock => {
+				name => 'Xlocks',
+				command => 'f.menu "xlock"',
+			},
+			twmstuff => {
+				name => 'TWM Stuff',
+				command => 'f.menu "twmstuff"',
+			},
+			xterms => {
+				name => 'Xterms',
+				command => 'f.menu "xterms"',
+			},
+			webstuff => {
+				name => 'Web Stuff',
+				command => 'f.menu "webstuff"',
+			},
+		},
+		order => 'winops nop mainxlock nop xlock nop twmstuff nop xterms webstuff',
+	},
+
+	'winops' => {
+		title => 'Window Ops',
+		menuitem => {
+			iconify => {
+				name => 'Iconify',
+				command => 'f.iconify',
+			},
+			resize => {
+				name => 'Resize',
+				command => 'f.resize',
+			},
+			move => {
+				name => 'Move',
+				command => 'f.move',
+			},
+			raise => {
+				name => 'Raise',
+				command => 'f.raise',
+			},
+			lower => {
+				name => 'Lower',
+				command => 'f.lower',
+			},
+			focus => {
+				name => 'Focus',
+				command => 'f.focus',
+			},
+			unfocus => {
+				name => 'Unfocus',
+				command => 'f.unfocus',
+			},
+			kill => {
+				name => 'Kill',
+				command => 'f.destroy',
+			},
+			delete => {
+				name => 'Delete',
+				command => 'f.delete',
+			},
+		},
+		order => 'iconify resize move raise lower nop focus unfocus nop kill delete',
+	},
+
+	'twmstuff' => {
+		title => 'TWM stuff',
+		menuitem => {
+			showiconmgr => {
+				name => 'Show Iconmgr',
+				command => 'f.showiconmgr',
+			},
+			hideiconmgr => {
+				name => 'Hide iconmgr',
+				command => 'f.hideiconmgr',
+			},
+			restart => {
+				name => 'Restart TWM',
+				command => 'f.function "newrestart"',
+			},
+			exper => {
+				name => 'Emerg. Res.',
+				command => 'f.restart',
+			},
+			exit => {
+				name => 'Exit',
+				command => 'f.menu "exit"',
+			},
+		},
+		order => 'showiconmgr hideiconmgr nop restart exper exit',
+	},
+
+	'exit' => {
+		title => 'Exit?',
+		menuitem => {
+			reallyquit => {
+				name => 'Yes, dammit',
+				command => 'f.quit',
+			},
+		},
+		order => 'nop reallyquit',
+	},
+
+	'xterms' => {
+		title => 'Xterms',
+		menuitem => {
+			mortis => {
+				name => 'mortis',
+				command =>
+				'!"/usr/X11R6/bin/xterm -name XTRATerm@mortis -geometry 80x25 -ls &"',
+			},
+			'24l' => {
+				name => '24line',
+				command =>
+				'!"/usr/X11R6/bin/xterm -name XTRATerm24@mortis -geometry 80x24 -ls &"',
+			},
+			rxvt => {
+				name => 'rxvt',
+				command =>
+				'!"/usr/X11R6/bin/rxvt -name rxvt@mortis -rv +ls -font 6x13 &"',
+			},
+		},
+		order => 'mortis 24l rxvt',
+	},
+
+	'webstuff' => {
+		title => 'Web stuff',
+		menuitem => {
+			netscape => {
+				name => 'Netscape',
+				command =>
+				'!"/usr/bin/nice -10 /usr/local/lib/netscape/netscape -iconic -geometry 823x713-26-12 &"',
+			},
+			mosaic => {
+				name => 'Mosaic',
+				command =>
+				'!"/usr/bin/nice -10 /usr/X11R6/bin/Mosaic &"',
+			},
+			mozilla => {
+				name => 'Mozilla',
+				command =>
+				'!"/usr/bin/nice -10 /usr/X11R6/bin/mozilla > /dev/null 2>&1 &"',
+			},
+		},
+		order => 'netscape mozilla mosaic',
+	},
+
+	'xlock1' => {
+		title => 'Xlock 1',
+		menuitem => {
+			ant => {
+				name => 'ant',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode ant -fg WHITE -bg BLACK &"',
+			},
+			atlantis => {
+				name => 'atlantis',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode atlantis -fg WHITE -bg BLACK &"',
+			},
+			ball => {
+				name => 'ball',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode ball -fg WHITE -bg BLACK &"',
+			},
+			bat => {
+				name => 'bat',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode bat -fg WHITE -bg BLACK &"',
+			},
+			blot => {
+				name => 'blot',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode blot -fg WHITE -bg BLACK &"',
+			},
+			bouboule => {
+				name => 'bouboule',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode bouboule -fg WHITE -bg BLACK &"',
+			},
+			bounce => {
+				name => 'bounce',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode bounce -fg WHITE -bg BLACK &"',
+			},
+			braid => {
+				name => 'braid',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode braid -fg WHITE -bg BLACK &"',
+			},
+			bubble => {
+				name => 'bubble',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode bubble -fg WHITE -bg BLACK &"',
+			},
+			bubble3d => {
+				name => 'bubble3d',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode bubble3d -fg WHITE -bg BLACK &"',
+			},
+			bug => {
+				name => 'bug',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode bug -fg WHITE -bg BLACK &"',
+			},
+			cage => {
+				name => 'cage',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode cage -fg WHITE -bg BLACK &"',
+			},
+			cartoon => {
+				name => 'cartoon',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode cartoon -fg WHITE -bg BLACK &"',
+			},
+			clock => {
+				name => 'clock',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode clock -fg WHITE -bg BLACK &"',
+			},
+			coral => {
+				name => 'coral',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode coral -fg WHITE -bg BLACK &"',
+			},
+			crystal => {
+				name => 'crystal',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode crystal -fg WHITE -bg BLACK &"',
+			},
+			daisy => {
+				name => 'daisy',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode daisy -fg WHITE -bg BLACK &"',
+			},
+			dclock => {
+				name => 'dclock',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode dclock -fg WHITE -bg BLACK &"',
+			},
+			decay => {
+				name => 'decay',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode decay -fg WHITE -bg BLACK &"',
+			},
+			deco => {
+				name => 'deco',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode deco -fg WHITE -bg BLACK &"',
+			},
+			demon => {
+				name => 'demon',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode demon -fg WHITE -bg BLACK &"',
+			},
+			dilemma => {
+				name => 'dilemma',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode dilemma -fg WHITE -bg BLACK &"',
+			},
+			discrete => {
+				name => 'discrete',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode discrete -fg WHITE -bg BLACK &"',
+			},
+			drift => {
+				name => 'drift',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode drift -fg WHITE -bg BLACK &"',
+			},
+			euler2d => {
+				name => 'euler2d',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode euler2d -fg WHITE -bg BLACK &"',
+			},
+			more => {
+				name => '\-more\-',
+				command => 'f.menu "xlock2"',
+			},
+		},
+		order => 'ant atlantis ball bat blot bouboule bounce braid bubble bubble3d bug cage cartoon clock coral crystal daisy dclock decay deco demon dilemma discrete drift euler2d more',
+	},
+
+	'xlock2' => {
+		title => 'Xlock 2',
+		menuitem => {
+			eyes => {
+				name => 'eyes',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode eyes -fg WHITE -bg BLACK &"',
+			},
+			fadeplot => {
+				name => 'fadeplot',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode fadeplot -fg WHITE -bg BLACK &"',
+			},
+			flag => {
+				name => 'flag',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode flag -fg WHITE -bg BLACK &"',
+			},
+			flame => {
+				name => 'flame',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode flame -fg WHITE -bg BLACK &"',
+			},
+			flow => {
+				name => 'flow',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode flow -fg WHITE -bg BLACK &"',
+			},
+			forest => {
+				name => 'forest',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode forest -fg WHITE -bg BLACK &"',
+			},
+			galaxy => {
+				name => 'galaxy',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode galaxy -fg WHITE -bg BLACK &"',
+			},
+			gears => {
+				name => 'gears',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode gears -fg WHITE -bg BLACK &"',
+			},
+			goop => {
+				name => 'goop',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode goop -fg WHITE -bg BLACK &"',
+			},
+			grav => {
+				name => 'grav',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode grav -fg WHITE -bg BLACK &"',
+			},
+			helix => {
+				name => 'helix',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode helix -fg WHITE -bg BLACK &"',
+			},
+			hop => {
+				name => 'hop',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode hop -fg WHITE -bg BLACK &"',
+			},
+			hyper => {
+				name => 'hyper',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode hyper -fg WHITE -bg BLACK &"',
+			},
+			ico => {
+				name => 'ico',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode ico -fg WHITE -bg BLACK &"',
+			},
+			ifs => {
+				name => 'ifs',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode ifs -fg WHITE -bg BLACK &"',
+			},
+			image => {
+				name => 'image',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode image -fg WHITE -bg BLACK &"',
+			},
+			invert => {
+				name => 'invert',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode invert -fg WHITE -bg BLACK &"',
+			},
+			juggle => {
+				name => 'juggle',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode juggle -fg WHITE -bg BLACK &"',
+			},
+			julia => {
+				name => 'julia',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode julia -fg WHITE -bg BLACK &"',
+			},
+			kaleid => {
+				name => 'kaleid',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode kaleid -fg WHITE -bg BLACK &"',
+			},
+			kumppa => {
+				name => 'kumppa',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode kumppa -fg WHITE -bg BLACK &"',
+			},
+			lament => {
+				name => 'lament',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode lament -fg WHITE -bg BLACK &"',
+			},
+			laser => {
+				name => 'laser',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode laser -fg WHITE -bg BLACK &"',
+			},
+			life => {
+				name => 'life',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode life -fg WHITE -bg BLACK &"',
+			},
+			life1d => {
+				name => 'life1d',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode life1d -fg WHITE -bg BLACK &"',
+			},
+			more => {
+				name => '\-more\-',
+				command => 'f.menu "xlock3"',
+			},
+		},
+		order => 'eyes fadeplot flag flame flow forest galaxy gears goop grav helix hop hyper ico ifs image invert juggle julia kaleid kumppa lament laser life life1d more',
+	},
+
+	'xlock3' => {
+		title => 'Xlock 3',
+		menuitem => {
+			life3d => {
+				name => 'life3d',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode life3d -fg WHITE -bg BLACK &"',
+			},
+			lightning => {
+				name => 'lightning',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode lightning -fg WHITE -bg BLACK &"',
+			},
+			lisa => {
+				name => 'lisa',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode lisa -fg WHITE -bg BLACK &"',
+			},
+			lissie => {
+				name => 'lissie',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode lissie -fg WHITE -bg BLACK &"',
+			},
+			loop => {
+				name => 'loop',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode loop -fg WHITE -bg BLACK &"',
+			},
+			lyapunov => {
+				name => 'lyapunov',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode lyapunov -fg WHITE -bg BLACK &"',
+			},
+			mandelbrot => {
+				name => 'mandelbrot',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode mandelbrot -fg WHITE -bg BLACK &"',
+			},
+			marquee => {
+				name => 'marquee',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode marquee -fg WHITE -bg BLACK &"',
+			},
+			matrix => {
+				name => 'matrix',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode matrix -fg WHITE -bg BLACK &"',
+			},
+			maze => {
+				name => 'maze',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode maze -fg WHITE -bg BLACK &"',
+			},
+			moebius => {
+				name => 'moebius',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode moebius -fg WHITE -bg BLACK &"',
+			},
+			morph3d => {
+				name => 'morph3d',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode morph3d -fg WHITE -bg BLACK &"',
+			},
+			mountain => {
+				name => 'mountain',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode mountain -fg WHITE -bg BLACK &"',
+			},
+			munch => {
+				name => 'munch',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode munch -fg WHITE -bg BLACK &"',
+			},
+			nose => {
+				name => 'nose',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode nose -fg WHITE -bg BLACK &"',
+			},
+			pacman => {
+				name => 'pacman',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode pacman -fg WHITE -bg BLACK &"',
+			},
+			penrose => {
+				name => 'penrose',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode penrose -fg WHITE -bg BLACK &"',
+			},
+			petal => {
+				name => 'petal',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode petal -fg WHITE -bg BLACK &"',
+			},
+			pipes => {
+				name => 'pipes',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode pipes -fg WHITE -bg BLACK &"',
+			},
+			puzzle => {
+				name => 'puzzle',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode puzzle -fg WHITE -bg BLACK &"',
+			},
+			pyro => {
+				name => 'pyro',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode pyro -fg WHITE -bg BLACK &"',
+			},
+			qix => {
+				name => 'qix',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode qix -fg WHITE -bg BLACK &"',
+			},
+			roll => {
+				name => 'roll',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode roll -fg WHITE -bg BLACK &"',
+			},
+			rotor => {
+				name => 'rotor',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode rotor -fg WHITE -bg BLACK &"',
+			},
+			rubik => {
+				name => 'rubik',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode rubik -fg WHITE -bg BLACK &"',
+			},
+			more => {
+				name => '\-more\-',
+				command => 'f.menu "xlock4"',
+			},
+		},
+		order => 'life3d lightning lisa lissie loop lyapunov mandelbrot marquee matrix maze moebius morph3d mountain munch nose pacman penrose petal pipes puzzle pyro qix roll rotor rubik more',
+	},
+
+	'xlock4' => {
+		title => 'Xlock 4',
+		menuitem => {
+			shape => {
+				name => 'shape',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode shape -fg WHITE -bg BLACK &"',
+			},
+			sierpinski => {
+				name => 'sierpinski',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode sierpinski -fg WHITE -bg BLACK &"',
+			},
+			slip => {
+				name => 'slip',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode slip -fg WHITE -bg BLACK &"',
+			},
+			solitare => {
+				name => 'solitare',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode solitare -fg WHITE -bg BLACK &"',
+			},
+			sphere => {
+				name => 'sphere',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode sphere -fg WHITE -bg BLACK &"',
+			},
+			spiral => {
+				name => 'spiral',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode spiral -fg WHITE -bg BLACK &"',
+			},
+			spline => {
+				name => 'spline',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode spline -fg WHITE -bg BLACK &"',
+			},
+			sproingies => {
+				name => 'sproingies',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode sproingies -fg WHITE -bg BLACK &"',
+			},
+			stairs => {
+				name => 'stairs',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode stairs -fg WHITE -bg BLACK &"',
+			},
+			star => {
+				name => 'star',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode star -fg WHITE -bg BLACK &"',
+			},
+			starfish => {
+				name => 'starfish',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode starfish -fg WHITE -bg BLACK &"',
+			},
+			strange => {
+				name => 'strange',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode strange -fg WHITE -bg BLACK &"',
+			},
+			superquadrics => {
+				name => 'superquadrics',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode superquadrics -fg WHITE -bg BLACK &"',
+			},
+			swarm => {
+				name => 'swarm',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode swarm -fg WHITE -bg BLACK &"',
+			},
+			swirl => {
+				name => 'swirl',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode swirl -fg WHITE -bg BLACK &"',
+			},
+			t3d => {
+				name => 't3d',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode t3d -fg WHITE -bg BLACK &"',
+			},
+			tetris => {
+				name => 'tetris',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode tetris -fg WHITE -bg BLACK &"',
+			},
+			thornbird => {
+				name => 'thornbird',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode thornbird -fg WHITE -bg BLACK &"',
+			},
+			tik_tak => {
+				name => 'tik_tak',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode tik_tak -fg WHITE -bg BLACK &"',
+			},
+			triangle => {
+				name => 'triangle',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode triangle -fg WHITE -bg BLACK &"',
+			},
+			tube => {
+				name => 'tube',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode tube -fg WHITE -bg BLACK &"',
+			},
+			turtle => {
+				name => 'turtle',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode turtle -fg WHITE -bg BLACK &"',
+			},
+			vines => {
+				name => 'vines',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode vines -fg WHITE -bg BLACK &"',
+			},
+			voters => {
+				name => 'voters',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode voters -fg WHITE -bg BLACK &"',
+			},
+			wator => {
+				name => 'wator',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode wator -fg WHITE -bg BLACK &"',
+			},
+			more => {
+				name => '\-more\-',
+				command => 'f.menu "xlock5"',
+			},
+		},
+		order => 'shape sierpinski slip solitare sphere spiral spline sproingies stairs star starfish strange superquadrics swarm swirl t3d tetris thornbird tik_tak triangle tube turtle vines voters wator more',
+	},
+
+	'xlock5' => {
+		title => 'Xlock 5',
+		menuitem => {
+			wire => {
+				name => 'wire',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode wire -fg WHITE -bg BLACK &"',
+			},
+			world => {
+				name => 'world',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode world -fg WHITE -bg BLACK &"',
+			},
+			worm => {
+				name => 'worm',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode worm -fg WHITE -bg BLACK &"',
+			},
+			xcl => {
+				name => 'xcl',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode xcl -fg WHITE -bg BLACK &"',
+			},
+			xjack => {
+				name => 'xjack',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode xjack -fg WHITE -bg BLACK &"',
+			},
+			blank => {
+				name => 'blank',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode blank -fg WHITE -bg BLACK &"',
+			},
+			bomb => {
+				name => 'bomb',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode bomb -fg WHITE -bg BLACK &"',
+			},
+			random => {
+				name => 'random',
+				command =>
+				'!"/usr/X11R6/bin/xlock -mode random -fg WHITE -bg BLACK &"',
+			},
+		},
+		order => 'wire world worm xcl xjack blank bomb random ',
+	},
+);

@@ -1,0 +1,9 @@
+# $Fuller: myprograms/twmrc/functions,v 1.3 2002/07/08 08:19:31 fullermd Exp $
+
+# Semi-standard
+Function "move-or-lower" { f.move f.deltastop f.lower }
+Function "move-or-raise" { f.move f.deltastop f.raise }
+Function "move-or-iconify" { f.move f.deltastop f.iconify }
+
+# My special stuff
+Function "newrestart" {!"(cd ~/.twm && make for_ctwm_m4)" f.restart}

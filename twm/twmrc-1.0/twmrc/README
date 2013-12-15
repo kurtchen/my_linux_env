@@ -1,0 +1,95 @@
+README for .twmrc
+$Fuller: myprograms/twmrc/README,v 1.1 2002/07/08 08:51:38 fullermd Exp $
+
+OVERVIEW
+
+This is my new, updated, .twmrc-automation system.  The previous
+generation was much more raggedy and ugly.  This method is much more
+modular, as well as being easier to install and more flexible.
+
+
+INSTALLATION
+
+Installation (and activation) is a relatively simple task.  At the most
+basic level, you run a 'make install', which will setup the appropriate
+files in ~/.twm.  Once that's done, head over there and edit files as
+necessary (except menus.pl and menus.hash; see special menus.hash section
+below).  The rest of the files are fairly self-explanatory, but they're
+summarized below for safety's sake.
+
+Then, you'll want to make the output file to test.  I suggest making a
+backup of your ~/.[c]twmrc beforehand.  There are several targets defined
+in the Makefile, depending on what setup you have.  I use ctwm, which is
+usually compiled (ideally) with m4 support.  In this case, you'll want to
+'make for_ctwm_m4'.  If you have ctwm WITHOUT m4 support, you'll want to
+'make for_ctwm_nom4'.  If you have plain old twm, you'll want to 'make
+for_twm'.  In the first two cases, this will build and install a new
+~/.ctwmrc; in the latter, a new ~/.twmrc.  When you determine which of
+these to do, make sure you edit the 'functions' file to update the
+'newrestart' function to use the correct 'make' target.
+
+Once that's done, and you're satisfied that it all looks reasonably
+correct, start (or restart) your [c]twm and give it a whirl!  If
+everything works, you're set, and the 'Restart TWM' option in the menus
+will remake whatever needs to be remade.  The 'Emerg. Res.' (emergency
+restart) function will NOT remake anything, but just restart with the
+config file as it currently exists.
+
+
+FILES
+
+- vars			Variable settings, both boolean and with values
+- vars.ctwm		Variable settings particular to ctwm
+- functions		Function definitions
+- iconmgrs		Additional icon manager definitions (see Note 1)
+- bindings		Key bindings
+- bindings.ctwm	Key bindings particular to ctwm
+- menus			Menus file (see MENUS section below)
+
+Note 1: The default iconmgrs config requires support in ctwm for icon
+	managers with multiple classes in them.  No currently released
+	version of ctwm has this; a patch is available on my website to add
+	this support.  You'll either need this patch, or to edit the iconmgrs
+	definition.  Comment out the line that's uncommented, and uncomment
+	the line that's commented, for a quickie edit on it.
+
+
+MENUS
+
+The 'menus' section of this is really the nifty part.  When your menus
+reach a certain depth, it gets to be a huge pain to maintain them in your
+.twmrc.  I reached that point, which is why I wrote this mess in the
+first place.  I've thus moved the burden of creating that into a Perl
+script.
+
+The info you edit is in a giant hash, in the file 'menus.hash', which is
+processed by the menus.pl script.  Actually, it's a hash of hashes, each
+of which contains a hash.  Each key at the top level is an individual
+menu.  Each of these menu hashes has 3 elements.  The first is the
+'title' of the menu.  The third is a list of the order of items within
+the menu (with a few 'special' items, like 'nop', that the processing
+script handles itself).  The second element is a hash of what the entries
+are and do, each entry of which contains 2 elements; one for the item
+'name', one for the 'command'.
+
+It sounds a lot more complex than it really is.  If you know Perl, you
+shouldn't have any trouble picking it up.  You can manually run 'make
+menus' to make (or try to make) the menus file.  You should do this
+manually after any changes, to make sure you didn't break anything.  You
+don't really need to understand the structure as a whole, just how to
+plug stuff in.  To get an entry onto a menu, it has to be defined as a
+name/command tuple within that menu, and its name has to be listed in the
+'order' element for that menu.  Thus, you can take an item out of a menu
+just by removing it from the 'order' element; you don't have to take out
+the actual definition.  This makes it nice and easy to remove things
+temporarily, as well as to re-order them.
+
+
+
+I suppose that's about it.  Bugfixes are welcome.  Feature requests or
+patches are welcome, though I reserve the right to sit on my ass and not
+do anything about them.  Enjoy!
+
+- Matthew Fuller
+<fullermd@over-yonder.net>
+<http://www.over-yonder.net/~fullermd/>
