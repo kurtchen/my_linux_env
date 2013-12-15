@@ -1,0 +1,29 @@
+[user]
+	name = Kurt Chen
+	email = kurt@kurtchen.com
+[commit]
+	template = /home/kurt/commit_msg_tmp.txt
+[core]
+	editor = vim
+[color]
+	ui = auto
+
+[alias]
+  co = checkout
+  ci = commit
+  st = status
+  br = branch
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  type = cat-file -t
+  dump = cat-file -p
+  d = difftool
+
+#>>>VISUAL DIFF START<<<
+#[merge]
+#	tool = extMerge
+#[mergetool "extMerge"]
+#	cmd = extMerge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+#	trustExitCode = false
+#[diff]
+#	external = extDiff
+##>>>VISUAL DIFF END<<<

@@ -1,0 +1,3 @@
+#!/bin/sh
+#"/home/kurt/bin/p4v-2011.1.428988/bin/p4merge" $*
+vimdiff $*
