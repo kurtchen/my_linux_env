@@ -88,14 +88,15 @@ Button1 = : icon : f.function "move-or-iconify"
 #Button2 = : icon : f.destroy
 Button3 = : icon : f.iconify
 
-Button1 = : iconmgr : f.iconify
+Button1 = : iconmgr : f.function "move-or-raise"
 Button2 = : iconmgr : f.destroy
 Button3 = : iconmgr : f.iconify
+
+"F7" = : root|window|frame|title|iconmgr : f.showiconmgr
 
 # This is for the window bar
 LeftTitleButton "~/twm/icons/close.xbm" = f.delete
 LeftTitleButton "~/twm/icons/maximize.xbm" = f.fullzoom
-
 
 #
 # And a menus with the usual things
