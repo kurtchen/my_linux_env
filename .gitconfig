@@ -18,6 +18,9 @@
   dump = cat-file -p
   d = difftool
 
+[http]
+	sslVerify = false
+
 #>>>VISUAL DIFF START<<<
 #[merge]
 #	tool = extMerge

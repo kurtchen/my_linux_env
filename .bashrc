@@ -47,6 +47,7 @@ alias screen='screen -U '
 
 #Shortcuts
 alias ws='cd /home/kurt/develop'
+alias ccat='/path/to/Pygments-1.6/pygmentize'
 
 #export DISPLAY=xxx:99
 
