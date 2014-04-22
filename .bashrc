@@ -93,3 +93,14 @@ targrep() {
 
   done
 }
+
+xtitle(){
+    local title="${USER}@${HOSTNAME}: ${PWD};"
+    if [[ -n $1 ]]; then
+        title=$1
+    fi
+
+    echo -ne "\033]0;$title\007"
+}
+
+export -f xtitle
