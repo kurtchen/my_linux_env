@@ -35,6 +35,7 @@ alias gd='git diff'
 alias go='git checkout '
 alias gk='gitk --all&'
 alias gx='gitx --all'
+alias gdc='git -c core.whitespace=tab-in-indent diff'
 
 alias got='git '
 alias get='git '
