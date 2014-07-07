@@ -1,23 +1,54 @@
+if [ -f ~/.bashrc.local.local ]; then
+    source ~/.bashrc.local.local
+fi
+
 #PS1='\u@\w#'
 PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[1;37m\]'
 
 #Path
-export PATH=/home/kurt/bin:/home/kurt/bin/cscope/bin:/home/kurt/bin/screen/bin:$PATH
-export PATH=/home/kurt/bin/jython2.7b1/bin:$PATH
-export PATH=/home/kurt/bin/mercurial-2.8-rc:$PATH
-export PATH=/home/kurt/bin/schedtool-1.3.0:$PATH
-export PATH=/home/kurt/bin/apache-maven-3.0.5/bin:$PATH
-#export PATH=/home/kurt/bin/apache-maven-3.1.1/bin:$PATH
-export PATH=/home/kurt/bin/gradle-1.8/bin:$PATH
+if [ -n $MY_BIN ]; then
+    export PATH=$MY_BIN:$PATH
+fi
 
-export JAVA_HOME=/home/kurt/bin/jdk1.7.0_45
-export CLASSPATH=.:%JAVA_HOME/lib/tools.jar:%JAVA_HOME/jre/lib/rt.jar
-export PATH=$JAVA_HOME/bin:$PATH
+if [ -n $CSCOPE_HOME ]; then
+    export PATH=$CSCOPE_HOME/bin:$PATH
+fi
 
-export ANT_HOME=/home/kurt/bin/apache-ant-1.9.2
-export PATH=$ANT_HOME/bin:$PATH
+if [ -n $SCREEN_HOME ]; then
+    export PATH=$SCREEN_HOME/bin:$PATH
+fi
 
-export ANDROID_HOME=/home/kurt/bin/android-sdk
+if [ -n $JYTHON_HOME ]; then
+    export PATH=$JYTHON_HOME/bin:$PATH
+fi
+
+if [ -n $MERCURIAL_HOME ]; then
+    export PATH=$MERCURIAL_HOME:$PATH
+fi
+
+if [ -n $MAVEN_HOME ]; then
+    export PATH=$MAVEN_HOME/bin:$PATH
+fi
+
+if [ -n $GRADLE_HOME ]; then
+    export PATH=$GRADLE_HOME/bin:$PATH
+fi
+
+if [ -n $GRADLE_HOME ]; then
+    export PATH=$JAVA_HOME/bin:$PATH
+    export CLASSPATH=.:$JAVA_HOME/lib/tools.jar:$JAVA_HOME/jre/lib/rt.jar
+fi
+
+if [ -n $ANT_HOME ]; then
+    export PATH=$ANT_HOME/bin:$PATH
+fi
+
+if [ -n $ANDROID_HOME ]; then
+    export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
+    if [ -n $ANDROID_SDK_VERSION ]; then
+        export PATH=$ANDROID_HOME/build-tools/$ANDROID_SDK_VERSION:$PATH
+    fi
+fi
 
 export LS_COLORS="di=01;32:fi=0:ln=0:pi=0:so=0:bd=0:cd=0:or=0:mi=0:ex=0:*.rpm=0"
 
@@ -47,10 +78,13 @@ alias xterm='xterm -u8 '
 alias screen='screen -U '
 
 #Shortcuts
-alias ws='cd /home/kurt/develop'
-alias ccat='/path/to/Pygments-1.6/pygmentize'
+if [ -n $WORKSPACE_HOME ]; then
+    alias ws='cd $WORKSPACE_HOME'
+fi
 
-#export DISPLAY=xxx:99
+if [ -n $PYGMENTS_HOME ]; then
+    alias ccat='$PYGMENTS_HOME/pygmentize'
+fi
 
 # 256 color
 if [ -e /usr/share/terminfo/x/xterm-256color ]; then
@@ -58,8 +92,6 @@ if [ -e /usr/share/terminfo/x/xterm-256color ]; then
 else
     export TERM='xterm-color'
 fi
-
-#export GODADDY=xxx
 
 stty erase "^?"
 

@@ -1,0 +1,12 @@
+export MY_BIN=
+
+export JAVA_HOME=
+export GRADLE_HOME=
+export ANDROID_HOME=
+
+export GODADDY=
+
+export WORKSPACE_HOME=
+
+#export DISPLAY=
+
