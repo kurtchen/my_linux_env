@@ -1,0 +1,54 @@
+#! /bin/sh
+# Output format (the date and the name are the commit date/name, not auther date/name)
+# 8423d50 2012-06-05 [Richard Hua] Fix up build breakage introduced by change in envsetup.sh
+#
+if [ $# -eq 0 ]
+then
+  echo "Usage: gitsince YYYY-MM-DD [file]"
+  exit 1
+fi
+
+#findrepo
+function findrepo ()
+{
+    local  __resultvar=$1
+    local SDIR
+
+    SDIR=`pwd`
+    while [ "/" != $SDIR ]; do
+        if [ -d $SDIR/.repo ]; then
+            eval $__resultvar="'$SDIR'"
+            return 0
+        else
+            SDIR=`dirname $SDIR`
+        fi
+    done
+    eval $__resultvar="'$SDIR'"
+    return 1
+}
+
+#get relative path
+function get_rel_path() {
+    source=$1
+    target=$2
+    common_part=$source
+    back=
+    while [ "${target#$common_part}" = "${target}" ]; do
+        common_part=$(dirname $common_part)
+        back="../${back}"
+    done
+    echo ${back}${target#$common_part/}
+} 
+
+CDIR=`pwd`
+findrepo repo_dir
+if [ $? -ne 0 ]; then
+    echo "Not in a repo tree!"
+    exit 1
+fi
+if [ $CDIR = $repo_dir ]; then
+    echo "At the top of a repo tree."
+    exit 0
+fi 
+echo "project `get_rel_path $repo_dir $CDIR`"
+git log --since="$1" --date=short --format="%h %cd [%cn] %s" --reverse $2

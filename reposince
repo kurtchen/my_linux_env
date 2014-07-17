@@ -1,0 +1,10 @@
+#! /bin/sh
+# Output format (the date and the name are the commit date/name, not auther date/name)
+# 8423d50 2012-06-05 [Richard Hua] Fix up build breakage introduced by change in envsetup.sh
+#
+if [ $# -ne 1 ]
+then
+  echo "Usage: reposince YYYY-MM-DD"
+  exit 1
+fi 
+repo forall -p -c 'git log --since="'$1'" --date=short --format="%h %cd [%cn] %s" --reverse'
