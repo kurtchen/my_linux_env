@@ -3,10 +3,7 @@ echo "Building development environment..."
 
 CWD=`pwd`
 
-echo "Step 1, build tags"
-`ctags -R --fields=+im`
-
-echo "Step 2, index source files"
+echo "Step 1, index source files"
 `find $CWD               \
 -type f                  \
 -name .repo -prune -o    \
@@ -20,6 +17,9 @@ echo "Step 2, index source files"
 -name '*.xml'  -print -o \
 -name '*.mk'  -print -o  \
 -name '*.[chxsS]' -print > $CWD/myfilenametags`
+
+echo "Step 2, build tags"
+`ctags -R --fields=+im -L myfilenametags`
 
 #`find $CWD/system        \
 #$CWD/frameworks          \

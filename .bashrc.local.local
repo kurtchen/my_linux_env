@@ -1,12 +1,23 @@
-export MY_BIN=
+export MY_BIN=~/bin
 
+export VIM_HOME=
 export JAVA_HOME=
 export GRADLE_HOME=
 export ANDROID_HOME=
-
+export ANDROID_SDK_HOME=
 export GODADDY=
-
 export WORKSPACE_HOME=
+export MAVEN_HOME=
+export GRADLE_USER_HOME=
+export GROOVY_HOME=
 
 #export DISPLAY=
 
+export USE_CCACHE=1
+export CCACHE_DIR=
+
+export http_proxy=
+export https_proxy=
+
+alias jedit='jedit -settings=/path/to/.jedit'
+alias aqi='curl -x proxy:port http://kurtchen.com/lab/aqi/'

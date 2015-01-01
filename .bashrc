@@ -3,11 +3,15 @@ if [ -f ~/.bashrc.local.local ]; then
 fi
 
 #PS1='\u@\w#'
-PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[1;37m\]'
+PS1='\[\e[0;32m\]Kurt\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[1;37m\]'
 
 #Path
 if [ -n $MY_BIN ]; then
     export PATH=$MY_BIN:$PATH
+fi
+
+if [ -n $VIM_HOME ]; then
+    export PATH=$VIM_HOME/bin:$PATH
 fi
 
 if [ -n $CSCOPE_HOME ]; then
@@ -35,7 +39,7 @@ if [ -n $GRADLE_HOME ]; then
 fi
 
 if [ -n $GRADLE_HOME ]; then
-    export PATH=$JAVA_HOME/bin:$PATH
+    export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH
     export CLASSPATH=.:$JAVA_HOME/lib/tools.jar:$JAVA_HOME/jre/lib/rt.jar
 fi
 
@@ -48,6 +52,10 @@ if [ -n $ANDROID_HOME ]; then
     if [ -n $ANDROID_SDK_VERSION ]; then
         export PATH=$ANDROID_HOME/build-tools/$ANDROID_SDK_VERSION:$PATH
     fi
+fi
+
+if [ -n $MAVEN_HOME ]; then
+    export PATH=$MAVEN_HOME/bin:$PATH
 fi
 
 export LS_COLORS="di=01;32:fi=0:ln=0:pi=0:so=0:bd=0:cd=0:or=0:mi=0:ex=0:*.rpm=0"
