@@ -3,7 +3,7 @@ if [ -f ~/.bashrc.local.local ]; then
 fi
 
 #PS1='\u@\w#'
-PS1='\[\e[0;32m\]Kurt\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[1;37m\]'
+PS1='\[\e[0;32m\]Kurt\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\n\$\[\e[m\] \[\e[1;37m\]'
 
 #Path
 if [ -n $MY_BIN ]; then
@@ -58,6 +58,10 @@ if [ -n $MAVEN_HOME ]; then
     export PATH=$MAVEN_HOME/bin:$PATH
 fi
 
+if [ -n $ANDROID_NDK ]; then
+    export PATH=$ANDROID_NDK:$PATH
+fi
+
 export LS_COLORS="di=01;32:fi=0:ln=0:pi=0:so=0:bd=0:cd=0:or=0:mi=0:ex=0:*.rpm=0"
 
 #Alias
@@ -82,8 +86,10 @@ alias get='git '
 alias gdv='git difftool --tool=vimdiff --no-prompt '
 
 #Xterm & screen alias
-alias xterm='xterm -u8 '
+alias xterm='xterm -u8 -e bash'
 alias screen='screen -U '
+
+alias tn='tnote'
 
 #Shortcuts
 if [ -n $WORKSPACE_HOME ]; then
@@ -93,6 +99,8 @@ fi
 if [ -n $PYGMENTS_HOME ]; then
     alias ccat='$PYGMENTS_HOME/pygmentize'
 fi
+
+#alias cmm='mm|~/bin/color_build_log.awk'
 
 # 256 color
 if [ -e /usr/share/terminfo/x/xterm-256color ]; then
@@ -145,3 +153,18 @@ xtitle(){
 }
 
 export -f xtitle
+
+cmm(){
+    mm $@|~/bin/color_build_log.awk
+}
+export -f cmm
+
+cmmm(){
+    mmm $@|~/bin/color_build_log.awk
+}
+export -f cmmm
+
+gsd(){
+    gdv $1^ $1
+}
+export -f gsd

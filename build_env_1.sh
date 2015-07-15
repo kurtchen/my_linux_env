@@ -20,6 +20,8 @@ echo "Step 1, index source files"
 
 echo "Step 2, build tags"
 `ctags -R --fields=+im -L myfilenametags`
+awk -F "|" 'length < 512' tags > tags.new
+mv tags.new tags
 
 #`find $CWD/system        \
 #$CWD/frameworks          \

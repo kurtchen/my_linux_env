@@ -5,6 +5,9 @@ CWD=`pwd`
 
 echo "Step 1, build tags"
 `ctags -R --fields=+im`
+awk -F "|" 'length < 512' tags > tags.new
+mv tags.new tags
+
 
 echo "Step 2, index source files"
 `find $CWD               \

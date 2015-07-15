@@ -1,7 +1,6 @@
 ! Use a nice truetype font and size by default...
-!xterm*faceName: DejaVu Sans Mono
-!xterm*faceSize: 11
-!xterm*faceNameDoublesize:WenQuanYi:pixelsize=14
+!xterm*faceName: xft:DejaVu Sans Mono for Powerline:regular:pixelsize=16
+!xterm*faceNameDoublesize:xft:Droid Sans Fallback:size=14
 
 xterm*VT100*font:     -Misc-Fixed-Medium-R-Normal--18-120-100-100-C-90-ISO10646-1
 xterm*VT100*wideFont: -Misc-Fixed-Medium-R-Normal-ja-18-120-100-100-C-180-ISO10646-1

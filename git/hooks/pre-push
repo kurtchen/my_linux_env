@@ -1,0 +1,8 @@
+#!/bin/sh
+grep_result=`git diff HEAD^ HEAD|grep "^+.*TODO"`
+if [ -z "$grep_result" ]; then
+    exit 0
+else
+    echo "there's TODO in your commit, check before push"
+    exit 1
+fi

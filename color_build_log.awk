@@ -1,4 +1,4 @@
-#!/bin/awk -f
+#!/usr/bin/awk -f
 
 function red(s) {
     printf "\033[1;31m" s "\033[0m "
