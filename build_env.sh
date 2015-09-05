@@ -22,6 +22,7 @@ echo "Step 2, index source files"
 -name '*.cc'  -print -o \
 -name '*.xml'  -print -o \
 -name '*.mk'  -print -o  \
+-name '*.go'  -print -o  \
 -name '*.[chxsS]' -print > $CWD/myfilenametags`
 
 #`find $CWD/system        \

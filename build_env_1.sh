@@ -16,6 +16,7 @@ echo "Step 1, index source files"
 -name '*.cc'  -print -o \
 -name '*.xml'  -print -o \
 -name '*.mk'  -print -o  \
+-name '*.go'  -print -o  \
 -name '*.[chxsS]' -print > $CWD/myfilenametags`
 
 echo "Step 2, build tags"

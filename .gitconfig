@@ -17,6 +17,7 @@
   type = cat-file -t
   dump = cat-file -p
   d = difftool
+  edit = "!vim `git ls-files -m`"
 
 [http]
 	sslVerify = false

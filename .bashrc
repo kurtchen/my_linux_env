@@ -62,6 +62,10 @@ if [ -n $ANDROID_NDK ]; then
     export PATH=$ANDROID_NDK:$PATH
 fi
 
+if [ -n $GOROOT ]; then
+    export PATH=$GOROOT/bin:$PATH
+fi
+
 export LS_COLORS="di=01;32:fi=0:ln=0:pi=0:so=0:bd=0:cd=0:or=0:mi=0:ex=0:*.rpm=0"
 
 #Alias
@@ -90,6 +94,7 @@ alias xterm='xterm -u8 -e bash'
 alias screen='screen -U '
 
 alias tn='tnote'
+alias wn='date +%V'
 
 #Shortcuts
 if [ -n $WORKSPACE_HOME ]; then
