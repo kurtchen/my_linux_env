@@ -38,7 +38,7 @@ if [ -n $GRADLE_HOME ]; then
     export PATH=$GRADLE_HOME/bin:$PATH
 fi
 
-if [ -n $GRADLE_HOME ]; then
+if [ -n $JAVA_HOME ]; then
     export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH
     export CLASSPATH=.:$JAVA_HOME/lib/tools.jar:$JAVA_HOME/jre/lib/rt.jar
 fi
@@ -70,7 +70,6 @@ export LS_COLORS="di=01;32:fi=0:ln=0:pi=0:so=0:bd=0:cd=0:or=0:mi=0:ex=0:*.rpm=0"
 
 #Alias
 alias vi='vim';
-alias ls='ls --color -F';
 alias grep='grep --color';
 
 #Git alias
@@ -96,6 +95,10 @@ alias screen='screen -U '
 alias tn='tnote'
 alias wn='date +%V'
 
+if [ -n $GODADDY ]; then
+    alias gfw_ssh='ssh -2 -qTNfn -D 127.0.0.1:7001 kurtchen83@$GODADDY'
+fi
+
 #Shortcuts
 if [ -n $WORKSPACE_HOME ]; then
     alias ws='cd $WORKSPACE_HOME'
@@ -118,6 +121,32 @@ stty erase "^?"
 
 set -o vi
 
+# OS specific
+OS="`uname`"
+case $OS in
+  'Linux')
+    OS='Linux'
+    alias ls='ls --color -F';
+    ;;
+  'FreeBSD')
+    OS='FreeBSD'
+    alias ls='ls -G'
+    ;;
+  'WindowsNT')
+    OS='Windows'
+    ;;
+  'Darwin')
+    OS='Mac'
+    alias ls='ls -G'
+    export PATH=/opt/local/bin:$PATH
+    ;;
+  'SunOS')
+    OS='Solaris'
+    ;;
+  'AIX') ;;
+  *) ;;
+esac
+
 targrep() {
 
   local taropt=""
@@ -126,7 +155,7 @@ targrep() {
     echo "Usage: targrep pattern file ..."
   fi
 
-  while [[ -n "$2" ]]; do    
+  while [[ -n "$2" ]]; do
 
     if [[ ! -f "$2" ]]; then
       echo "targrep: $2: No such file" >&2
@@ -173,3 +202,36 @@ gsd(){
     gdv $1^ $1
 }
 export -f gsd
+
+# mount the develop file image
+function mountDevelop() {
+    if [[ ! -d "/Volumes/develop" ]]; then
+        hdiutil attach ~/develop.dmg.sparseimage -mountpoint /Volumes/develop
+    fi
+}
+export -f mountDevelop
+
+# unmount the develop file image
+function umountDevelop() {
+    if [[ -d "/Volumes/develop" ]]; then
+        hdiutil detach /Volumes/develop
+    fi
+}
+export -f umountDevelop
+
+# explain.sh begins
+explain () {
+  if [ "$#" -eq 0 ]; then
+    while read  -p "Command: " cmd; do
+      curl -Gs "https://www.mankier.com/api/explain/?cols="$(tput cols) --data-urlencode "q=$cmd"
+    done
+    echo "Bye!"
+  elif [ "$#" -eq 1 ]; then
+    curl -Gs "https://www.mankier.com/api/explain/?cols="$(tput cols) --data-urlencode "q=$1"
+  else
+    echo "Usage"
+    echo "explain                  interactive mode."
+    echo "explain 'cmd -o | ...'   one quoted command to explain it."
+  fi
+}
+export -f explain

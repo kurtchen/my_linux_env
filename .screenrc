@@ -39,38 +39,4 @@ hardcopydir /local/guangmi1/tmp
 logfile /local/guangmi1/tmp/screenlog.txt
 bufferfile /local/guangmi1/tmp/screen_buffer.txt
 
-# start the windows
-chdir /local/guangmi1/cpeg_sf3g_lpop/android
-screen -t flycm_android 0
-chdir /local/guangmi1/cpeg_sf3g_lpop/linux-3.10
-screen -t flycm_kernel 1
-chdir
-screen -t home 2
-screen -t CONSOLE 3
-chdir /local/guangmi1/others
-screen -t others 4
-chdir /local/guangmi1/WML
-screen -t main_line 5
-chdir
-screen -t lynx 6
-chdir
-#screen -t BUILD_1 5
-#screen -t BUILD_2 6
-#screen -t BUILD_3 7
-#screen -t BUILD_4 8
-#select 5
-#split
-#split -v
-#focus down
-#select 6
-#focus down
-#split -v
-#select 7
-#focus down
-#select 8
-select 0
-split
-focus down
-select 3
-focus down
-resize max
+source /Users/kurt/.screenrc.local
