@@ -40,3 +40,4 @@ logfile /local/guangmi1/tmp/screenlog.txt
 bufferfile /local/guangmi1/tmp/screen_buffer.txt
 
 source /Users/kurt/.screenrc.local
+source ~/.screenrc.local
