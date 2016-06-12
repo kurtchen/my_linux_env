@@ -2,8 +2,17 @@ if [ -f ~/.bashrc.local.local ]; then
     source ~/.bashrc.local.local
 fi
 
+function jobs_indicator() {
+    local jobs_count=`jobs|wc -l`
+    if [[ $jobs_count -gt 0 ]]; then
+        echo "($jobs_count jobs) "
+    fi
+}
+
 #PS1='\u@\w#'
-PS1='\[\e[0;32m\]Kurt\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\n\$\[\e[m\] \[\e[1;37m\]'
+#PS1='\[\e[0;32m\]Kurt\[\e[m\] (\j jobs) \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\n\$\[\e[m\] \[\e[1;37m\]'
+#PS1='\[\e[0;32m\]Kurt\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\n\$\[\e[m\] \[\e[1;37m\]'
+PS1='\[\e[0;32m\]Kurt\[\e[m\] `jobs_indicator`\[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\n\$\[\e[m\] \[\e[1;37m\]'
 
 #Path
 if [ -n $MY_BIN ]; then
