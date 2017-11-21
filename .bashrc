@@ -1,7 +1,8 @@
-if [ -f ~/.bashrc.local.local ]; then
-    source ~/.bashrc.local.local
+if [ -f ~/.bashrc.local.before ]; then
+    source ~/.bashrc.local.before
 fi
 
+# PS1 {{{
 function jobs_indicator() {
     local jobs_count=`jobs|wc -l`
     if [[ $jobs_count -gt 0 ]]; then
@@ -9,12 +10,18 @@ function jobs_indicator() {
     fi
 }
 
-#PS1='\u@\w#'
-#PS1='\[\e[0;32m\]Kurt\[\e[m\] (\j jobs) \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\n\$\[\e[m\] \[\e[1;37m\]'
-#PS1='\[\e[0;32m\]Kurt\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\n\$\[\e[m\] \[\e[1;37m\]'
-PS1='\[\e[0;32m\]Kurt\[\e[m\] `jobs_indicator`\[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\n\$\[\e[m\] \[\e[1;37m\]'
+if [[ -n $PS1_SHOW_HOST && $PS1_SHOW_HOST -eq 1 ]]; then
+    PS1='\[\e[0;32m\]Kurt@\h\[\e[m\] `jobs_indicator`\[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\n\$\[\e[m\] \[\e[1;37m\]'
+else
+    #PS1='\u@\w#'
+    #PS1='\[\e[0;32m\]Kurt\[\e[m\] (\j jobs) \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\n\$\[\e[m\] \[\e[1;37m\]'
+    #PS1='\[\e[0;32m\]Kurt\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\n\$\[\e[m\] \[\e[1;37m\]'
+    PS1='\[\e[0;32m\]Kurt\[\e[m\] `jobs_indicator`\[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\n\$\[\e[m\] \[\e[1;37m\]'
+fi
 
-#Path
+# }}} // PS1
+
+# Path {{{
 if [ -n $MY_BIN ]; then
     export PATH=$MY_BIN:$PATH
 fi
@@ -79,9 +86,20 @@ if [ -n $CHEAT_HOME ]; then
     export PATH=$CHEAT_HOME/bin:$PATH
 fi
 
+# }}} // Path
+
+# ENV {{{
 export LS_COLORS="di=01;32:fi=0:ln=0:pi=0:so=0:bd=0:cd=0:or=0:mi=0:ex=0:*.rpm=0"
 
-#Alias
+# 256 color
+if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+    export TERM='xterm-256color'
+else
+    export TERM='xterm-color'
+fi
+# }}} // ENV
+
+# Alias {{{
 alias vi='vim';
 alias grep='grep --color';
 
@@ -108,8 +126,8 @@ alias screen='screen -U '
 alias tn='tnote'
 alias wn='date +%V'
 
-if [ -n $GODADDY ]; then
-    alias gfw_ssh='ssh -2 -qTNfn -D 127.0.0.1:7001 kurtchen83@$GODADDY'
+if [[ -n $GODADDY_USER && -n $GODADDY_HOST ]]; then
+    alias gfw_ssh='ssh -2 -qTNfn -D 127.0.0.1:7001 $GODADDY_USER@$GODADDY_HOST'
 fi
 
 #Shortcuts
@@ -123,13 +141,9 @@ fi
 
 #alias cmm='mm|~/bin/color_build_log.awk'
 
-# 256 color
-if [ -e /usr/share/terminfo/x/xterm-256color ]; then
-    export TERM='xterm-256color'
-else
-    export TERM='xterm-color'
-fi
+# }}} // Alias
 
+# Settings {{{
 stty erase "^?"
 
 set -o vi
@@ -159,6 +173,10 @@ case $OS in
   'AIX') ;;
   *) ;;
 esac
+
+# }}} // Settings
+
+# Functions {{{
 
 targrep() {
 
@@ -248,3 +266,9 @@ explain () {
   fi
 }
 export -f explain
+
+# }}} // Settings
+
+if [ -f ~/.bashrc.local.after ]; then
+    source ~/.bashrc.local.after
+fi
