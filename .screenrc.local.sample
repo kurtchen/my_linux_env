@@ -1,0 +1,54 @@
+# start the windows
+chdir /path/to/project1
+screen -t Project1 0
+chdir /path/to/project2
+screen -t Project2 1
+chdir
+screen -t home 2
+chdir /path/to/tmp
+screen -t CONSOLE 3
+chdir /path/to/others
+screen -t others 4
+chdir /path/to//kernel
+screen -t others_kernel 5
+chdir /path/to/others/doc
+screen -t lynx 6
+chdir /path/to/project1
+screen -t BUILD_PROJECT1 7
+chdir /path/to/project2
+screen -t BUILD_PROJECT2 8
+chdir
+
+# layouts
+layout autosave on
+layout new CODE
+select 0
+split
+focus down
+select 3
+focus down
+resize max
+
+layout new CONSOLE_OPEN
+select 0
+split
+focus down
+select 3
+focus down
+resize -8
+
+layout new BUILD
+select 0
+split
+split -v
+focus down
+select 1
+focus down
+split -v
+select 2
+focus down
+select 3
+focus down
+
+layout attach CODE
+layout select CODE
