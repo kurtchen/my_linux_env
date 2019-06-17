@@ -86,6 +86,15 @@ if [ -n $CHEAT_HOME ]; then
     export PATH=$CHEAT_HOME/bin:$PATH
 fi
 
+if [ -n $NVM_HOME ]; then
+    [ -s "$NVM_HOME/nvm.sh"  ] && \. "$NVM_HOME/nvm.sh"  # This loads nvm
+    [ -s "$NVM_HOME/bash_completion"  ] && \. "$NVM_HOME/bash_completion"  # This loads nvm bash_completion
+fi
+
+if [ -n $RUST_HOME ]; then
+    export PATH=$RUST_HOME/bin:$PATH
+fi
+
 # }}} // Path
 
 # ENV {{{

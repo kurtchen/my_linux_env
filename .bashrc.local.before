@@ -12,6 +12,8 @@ export MAVEN_HOME=
 export GRADLE_USER_HOME=
 export GROOVY_HOME=
 export PS1_SHOW_HOST=0
+export NVM_HOME=
+export RUST_HOME=
 
 #export DISPLAY=
 
