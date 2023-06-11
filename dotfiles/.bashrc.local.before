@@ -1,0 +1,13 @@
+export MY_BIN=${HOME}/bin
+
+export PS1_SHOW_HOST=1
+
+#export DISPLAY=
+
+#export USE_CCACHE=1
+#export CCACHE_DIR=
+
+#export http_proxy=
+#export https_proxy=
+
+#alias jedit='jedit -settings=/path/to/.jedit'

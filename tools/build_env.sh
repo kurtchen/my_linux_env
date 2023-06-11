@@ -16,18 +16,18 @@ function create_file_name_tags {
     -name .repo -prune -o     \
     -name .git -prune -o      \
     -name .svn -prune -o      \
-    -name '*.java' -print -o  \
-    -name '*.aidl' -print -o  \
-    -name '*.hpp'  -print -o  \
-    -name '*.cpp'  -print -o  \
-    -name '*.cc'   -print -o  \
-    -name '*.xml'  -print -o  \
-    -name '*.mk'   -print -o  \
-    -name '*.go'   -print -o  \
-    -name '*.js'   -print -o  \
-    -name '*.py'   -print -o  \
-    -name '*.php'  -print -o  \
-    -name '*.[chxsS]' -print > $1/$2
+    -iname '*.java' -print -o  \
+    -iname '*.aidl' -print -o  \
+    -iname '*.hpp'  -print -o  \
+    -iname '*.cpp'  -print -o  \
+    -iname '*.cc'   -print -o  \
+    -iname '*.xml'  -print -o  \
+    -iname '*.mk'   -print -o  \
+    -iname '*.go'   -print -o  \
+    -iname '*.js'   -print -o  \
+    -iname '*.py'   -print -o  \
+    -iname '*.php'  -print -o  \
+    -iname '*.[chxsS]' -print > $1/$2
 }
 
 RUN_CTAGS=1
@@ -82,7 +82,7 @@ if [ $RUN_CTAGS -eq 1 ]; then
         echo "Step $CUR_STEP, build tags"
         let CUR_STEP=$CUR_STEP+1
 
-        ctags -R --fields=+im
+        ctags -R --fields=+im -I INFERENCE_ENGINE_API_CLASS,TORCH_API
 
         if [ $RUN_FILENAME_TAGS -eq 1 ]; then
             echo "Step $CUR_STEP, index source files"
@@ -101,7 +101,7 @@ if [ $RUN_CTAGS -eq 1 ]; then
         echo "Step $CUR_STEP, build tags"
         let CUR_STEP=$CUR_STEP+1
 
-        ctags -R --fields=+im -L $CWD/myfilenametags.tmp
+        ctags -R --fields=+im -I INFERENCE_ENGINE_API_CLASS,TORCH_API -L $CWD/myfilenametags.tmp
 
         if [ $RUN_FILENAME_TAGS -eq 1 ]; then
             mv $CWD/myfilenametags.tmp $CWD/myfilenametags
