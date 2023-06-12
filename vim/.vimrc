@@ -65,6 +65,88 @@ call plug#end()
 " {
 " > General Commands
 "   {
+      let g:my_tags_path = {
+          \ 'py' : '',
+          \ }
+
+      " Add tags file to &tags {
+      function! s:AddTags(tagName)
+          if exists('g:my_tags_path') && has_key(g:my_tags_path, a:tagName)
+              call s:AddTagsByPath(g:my_tags_path[a:tagName])
+          else
+              if !exists('g:my_tags_path')
+                  echomsg 'warning: g:my_tags_path not defined'
+              endif
+
+              call s:AddTagsByPath(a:tagName)
+          endif
+
+          echomsg '&tags=' . &tags
+      endfunction
+      "}
+
+      " Add tags file to &tags {
+      function! s:AddTagsByPath(tagPath)
+          if strlen(a:tagPath) == 0
+              return
+          endif
+
+          if stridx(&tags, a:tagPath) == -1
+              if strlen(&tags) == 0
+                  let &tags = a:tagPath
+              else
+                  let &tags = &tags . "," . a:tagPath
+              endif
+          endif
+      endfunction
+      "}
+
+      " Remove tags file from &tags {
+      function! s:RemoveTags(tagName)
+          if exists('g:my_tags_path') && has_key(g:my_tags_path, a:tagName)
+              call s:RemoveTagsByPath(g:my_tags_path[a:tagName])
+          else
+              if !exists('g:my_tags_path')
+                  echomsg 'warning: g:my_python_tags_path not defined'
+              endif
+
+              call s:RemoveTagsByPath(a:tagName)
+          endif
+
+          echomsg '&tags=' . &tags
+      endfunction
+      "}
+
+      " Remove tags file from &tags {
+      function! s:RemoveTagsByPath(tagPath)
+          let tagPathIndex = stridx(&tags, a:tagPath)
+          if tagPathIndex != -1
+              let tagPathEndIndex = tagPathIndex + strlen(a:tagPath)
+              let tagPathSeg1 = strpart(&tags, 0, tagPathIndex)
+              let tagPathSeg2 = strpart(&tags, tagPathEndIndex)
+              let tagPathSeg1Len = strlen(tagPathSeg1)
+              if tagPathSeg1Len > 0 && strpart(tagPathSeg1, tagPathSeg1Len - 1) == ","
+                  if tagPathSeg1Len == 1
+                      let tagPathSeg1 = ""
+                  else
+                      let tagPathSeg1 = strpart(tagPathSeg1, 0, tagPathSeg1Len - 1)
+                  endif
+              endif
+              let &tags = tagPathSeg1 . tagPathSeg2
+          endif
+      endfunction
+      "}
+
+      " Display &tags {
+      function! s:ListTags()
+          echomsg '&tags=' . &tags
+      endfunction
+      "}
+
+      " Add/Remove/List &tags
+      command! -nargs=1 -complete=file AddTags call <SID>AddTags(<f-args>)
+      command! -nargs=1 -complete=file RemoveTags call <SID>RemoveTags(<f-args>)
+      command! -nargs=0 ListTags call <SID>ListTags()
 "   } // General Commands
 
 " > Plugin Commands
@@ -72,11 +154,13 @@ call plug#end()
 
 " >>  vim-fzf commands
 "     {
-        function FZF_Ag_w_args(opt, query)
+        function! s:FZF_Ag_w_args(opt, query)
             call fzf#vim#ag(a:query, a:opt, fzf#vim#with_preview(), 0)
         endfunction
-        command! -bang -nargs=* Agg call FZF_Ag_w_args(<f-args>)
+        command! -bang -nargs=* Agg call <SID>FZF_Ag_w_args(<f-args>)
 "     } vim-fzf commands
+"   } Plugin Commands
+" }
 
 " ================= Key Mappings ====================
 " {
@@ -134,13 +218,21 @@ call plug#end()
 
 " >>  FZF Key Mappings
 "     {
-        nn <leader>fbb    <Cmd>Buffers<CR>
+        function! s:FZF_Ag_cword()
+            call fzf#vim#ag(expand('<cword>'), fzf#vim#with_preview(), 0)
+        endfunction
+
+        nn <leader>fbb   <Cmd>Buffers<CR>
         nn <leader>ff    <Cmd>Files<CR>
         nn <leader>fl    <Cmd>Lines<CR>
         nn <leader>ft    <Cmd>Tags<CR>
-        nn <leader>fbt    <Cmd>BTags<CR>
+        nn <leader>ftc   :Tags <c-r>=expand('<cword>')<CR><CR>
+        nn <leader>fbt   <Cmd>BTags<CR>
+        nn <leader>fbc   :BTags <c-r>=expand('<cword>')<CR><CR>
         nn <leader>fj    <Cmd>Jumps<CR>
         nn <leader>fh    <Cmd>History<CR>
+        nn <leader>fag   :Ag <c-r>=expand('<cword>')<CR><CR>
+        nn <leader>faw   :Agg -w <c-r>=expand('<cword>')<CR><CR>
         imap <c-x><c-k> <plug>(fzf-complete-word)
         imap <c-x><c-f> <plug>(fzf-complete-path)
         imap <c-x><c-l> <plug>(fzf-complete-line)
