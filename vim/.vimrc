@@ -112,6 +112,17 @@ call plug#end()
         nnoremap <silent> <leader>tt :TagbarToggle<CR>
 "     } tagbar Key Mappings
 
+" >>  FZF Key Mappings
+"     {
+        nn <leader>fbb    <Cmd>Buffers<CR>
+        nn <leader>ff    <Cmd>Files<CR>
+        nn <leader>fl    <Cmd>Lines<CR>
+        nn <leader>ft    <Cmd>Tags<CR>
+        nn <leader>fbt    <Cmd>BTags<CR>
+        nn <leader>fj    <Cmd>Jumps<CR>
+        nn <leader>fh    <Cmd>History<CR>
+"     } FZF Key Mappings
+
 "   } // Plugin Key Mappings
 " } // Key Mappings
 
