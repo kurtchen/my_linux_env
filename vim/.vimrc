@@ -27,6 +27,9 @@ call plug#end()
       set expandtab                   " Tabs are spaces, not tabs
       set tabstop=4                   " An indentation every four columns
       set softtabstop=4               " Let backspace delete indent
+
+      set spell                       " Spell checking on
+      set hidden                      " Allow buffer switching without saving
 "   } // General Settings
 
 " > Plugin Settings
@@ -57,6 +60,23 @@ call plug#end()
 
 "   } // Plugin Settings
 " } // Settings
+
+" =================== Commands ======================
+" {
+" > General Commands
+"   {
+"   } // General Commands
+
+" > Plugin Commands
+"   {
+
+" >>  vim-fzf commands
+"     {
+        function FZF_Ag_w_args(opt, query)
+            call fzf#vim#ag(a:query, a:opt, fzf#vim#with_preview(), 0)
+        endfunction
+        command! -bang -nargs=* Agg call FZF_Ag_w_args(<f-args>)
+"     } vim-fzf commands
 
 " ================= Key Mappings ====================
 " {
@@ -121,6 +141,9 @@ call plug#end()
         nn <leader>fbt    <Cmd>BTags<CR>
         nn <leader>fj    <Cmd>Jumps<CR>
         nn <leader>fh    <Cmd>History<CR>
+        imap <c-x><c-k> <plug>(fzf-complete-word)
+        imap <c-x><c-f> <plug>(fzf-complete-path)
+        imap <c-x><c-l> <plug>(fzf-complete-line)
 "     } FZF Key Mappings
 
 "   } // Plugin Key Mappings
