@@ -82,7 +82,7 @@ if [ $RUN_CTAGS -eq 1 ]; then
         echo "Step $CUR_STEP, build tags"
         let CUR_STEP=$CUR_STEP+1
 
-        ctags -R --fields=+im -I INFERENCE_ENGINE_API_CLASS,TORCH_API
+        ctags -R --fields=+im -I INFERENCE_ENGINE_API_CLASS,TORCH_API,SYN_API_CALL --C-kinds=+p --C++-kinds=+p
 
         if [ $RUN_FILENAME_TAGS -eq 1 ]; then
             echo "Step $CUR_STEP, index source files"
@@ -101,7 +101,7 @@ if [ $RUN_CTAGS -eq 1 ]; then
         echo "Step $CUR_STEP, build tags"
         let CUR_STEP=$CUR_STEP+1
 
-        ctags -R --fields=+im -I INFERENCE_ENGINE_API_CLASS,TORCH_API -L $CWD/myfilenametags.tmp
+        ctags -R --fields=+im -I INFERENCE_ENGINE_API_CLASS,TORCH_API,SYN_API_CALL --C-kinds=+p --C++-kinds=+p -L $CWD/myfilenametags.tmp
 
         if [ $RUN_FILENAME_TAGS -eq 1 ]; then
             mv $CWD/myfilenametags.tmp $CWD/myfilenametags

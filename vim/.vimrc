@@ -8,6 +8,7 @@ call plug#begin()
   Plug 'tpope/vim-fugitive'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
+  Plug 'will133/vim-dirdiff'
 call plug#end()
 " } // Plugins
 
@@ -57,6 +58,11 @@ call plug#end()
         " NERD Tree for all tab, and auto mirror
         " nnoremap <C-e> :NERDTreeTabsToggle<CR>:NERDTreeMirror<CR>
 "     } NERDTree settings
+
+" >>  fzf.vim Settings
+"     {
+        let g:fzf_tags_command = 'ctags -R --fields=+im -I INFERENCE_ENGINE_API_CLASS,TORCH_API,SYN_API_CALL --C-kinds=+p --C++-kinds=+p'
+"     } // fzf.vim settings
 
 "   } // Plugin Settings
 " } // Settings
