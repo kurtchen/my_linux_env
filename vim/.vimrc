@@ -1,5 +1,5 @@
 " ================ Plugins =====================
-" {
+" Plugins {
 call plug#begin()
   Plug 'altercation/vim-colors-solarized'
   Plug 'preservim/nerdtree'
@@ -13,6 +13,7 @@ call plug#end()
 " } // Plugins
 
 " ================= Settings ====================
+" Settings {
 " Initialize directories {
 function! InitializeDirectories()
     let parent = $HOME
@@ -54,50 +55,80 @@ function! InitializeDirectories()
     endfor
 endfunction
 call InitializeDirectories()
-" }
-" {
-" > Use local options if available
+" } // Initialize directories
+
+" Use local options if available {
     if filereadable(expand("~/.vimrc.local"))
         source ~/.vimrc.local
     endif
 " }
-" {
-" > General Settings
-"   {
-      set encoding=utf-8
 
-      set t_Co=256
-      set background=dark
-      set hlsearch
-      syntax on
+" General Settings {
+    set encoding=utf-8
 
-      set autoindent                  " Indent at the same level of the previous line
-      set shiftwidth=4                " Use indents of 4 spaces
-      set expandtab                   " Tabs are spaces, not tabs
-      set tabstop=4                   " An indentation every four columns
-      set softtabstop=4               " Let backspace delete indent
+    set t_Co=256
+    set background=dark
+    set hlsearch
+    syntax on
 
-      set spell                       " Spell checking on
-      set hidden                      " Allow buffer switching without saving
+    set autoindent                  " Indent at the same level of the previous line
+    set shiftwidth=4                " Use indents of 4 spaces
+    set expandtab                   " Tabs are spaces, not tabs
+    set tabstop=4                   " An indentation every four columns
+    set softtabstop=4               " Let backspace delete indent
 
-      set list
-      set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
-"   } // General Settings
+    set spell                       " Spell checking on
+    set hidden                      " Allow buffer switching without saving
 
-" > Plugin Settings
-"   {
+    set list
+    set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+" } // General Settings
 
-" >>  solarized Settings
-"     {
-        let g:solarized_termcolors=256
-        let g:solarized_termtrans=1
-        let g:solarized_contrast="normal"
-        let g:solarized_visibility="normal"
-        colorscheme solarized
-"     } // solarized settings
+" Autocomplete Settings {
+    " OmniComplete {
+        " To disable omni complete, add the following to your .vimrc.before.local file:
+        " let g:no_omni_complete = 1
+        if !exists('g:no_omni_complete')
+            if has("autocmd") && exists("+omnifunc")
+                autocmd Filetype *
+                    \if &omnifunc == "" |
+                    \setlocal omnifunc=syntaxcomplete#Complete |
+                    \endif
+            endif
 
-" >>  NERDTree Settings
-"     {
+            hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+            hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
+            hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
+
+            " Some convenient mappings
+            "inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+            if exists('g:map_cr_omni_complete')
+                inoremap <expr> <CR>     pumvisible() ? "\<C-y>" : "\<CR>"
+            endif
+            inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+            inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+            inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+            inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+
+            " Automatically open and close the popup menu / preview window
+            au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+            set completeopt=menu,preview,longest
+        endif
+        autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    " } // OmniComplete
+" } // Autocomplete Settings
+
+" Plugin Settings {
+
+    " solarized Settings {
+       let g:solarized_termcolors=256
+       let g:solarized_termtrans=1
+       let g:solarized_contrast="normal"
+       let g:solarized_visibility="normal"
+       colorscheme solarized
+    " } // solarized settings
+
+    " NERDTree Settings {
         let NERDTreeShowBookmarks=1
         let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
         let NERDTreeChDirMode=0
@@ -108,110 +139,107 @@ call InitializeDirectories()
         let g:nerdtree_tabs_open_on_gui_startup=0
         " NERD Tree for all tab, and auto mirror
         " nnoremap <C-e> :NERDTreeTabsToggle<CR>:NERDTreeMirror<CR>
-"     } NERDTree settings
+    " } // NERDTree settings
 
-" >>  fzf.vim Settings
-"     {
+    " fzf.vim Settings {
         let g:fzf_tags_command = 'ctags -R --fields=+im -I INFERENCE_ENGINE_API_CLASS,TORCH_API,SYN_API_CALL --C-kinds=+p --C++-kinds=+p'
-"     } // fzf.vim settings
+    " } // fzf.vim settings
 
-"   } // Plugin Settings
+" } // Plugin Settings
 " } // Settings
 
 " =================== Commands ======================
-" {
-" > General Commands
-"   {
-      "let g:my_tags_path = {
-      "    \ 'py' : '',
-      "    \ }
+" Commands {
+" General Commands {
+    " set tag alias like below in config file.
+    " let g:my_tags_path = {
+    "     \ 'py' : '/path/to/python-tag-file',
+    "     \ }
 
-      " Add tags file to &tags {
-      function! s:AddTags(tagName)
-          if exists('g:my_tags_path') && has_key(g:my_tags_path, a:tagName)
-              call s:AddTagsByPath(g:my_tags_path[a:tagName])
-          else
-              if !exists('g:my_tags_path')
-                  echomsg 'warning: g:my_tags_path not defined'
-              endif
+    " Add tags file to &tags {
+    function! s:AddTags(tagName)
+        if exists('g:my_tags_path') && has_key(g:my_tags_path, a:tagName)
+            call s:AddTagsByPath(g:my_tags_path[a:tagName])
+        else
+            if !exists('g:my_tags_path')
+                echomsg 'warning: g:my_tags_path not defined'
+            endif
 
-              call s:AddTagsByPath(a:tagName)
-          endif
+            call s:AddTagsByPath(a:tagName)
+        endif
 
-          echomsg '&tags=' . &tags
-      endfunction
-      "}
+        echomsg '&tags=' . &tags
+    endfunction
+    " }
 
-      " Add tags file to &tags {
-      function! s:AddTagsByPath(tagPath)
-          if strlen(a:tagPath) == 0
-              return
-          endif
+    " Add tags file to &tags {
+    function! s:AddTagsByPath(tagPath)
+        if strlen(a:tagPath) == 0
+            return
+        endif
 
-          if stridx(&tags, a:tagPath) == -1
-              if strlen(&tags) == 0
-                  let &tags = a:tagPath
-              else
-                  let &tags = &tags . "," . a:tagPath
-              endif
-          endif
-      endfunction
-      "}
+        if stridx(&tags, a:tagPath) == -1
+            if strlen(&tags) == 0
+                let &tags = a:tagPath
+            else
+                let &tags = &tags . "," . a:tagPath
+            endif
+        endif
+    endfunction
+    " }
 
-      " Remove tags file from &tags {
-      function! s:RemoveTags(tagName)
-          if exists('g:my_tags_path') && has_key(g:my_tags_path, a:tagName)
-              call s:RemoveTagsByPath(g:my_tags_path[a:tagName])
-          else
-              if !exists('g:my_tags_path')
-                  echomsg 'warning: g:my_python_tags_path not defined'
-              endif
+    " Remove tags file from &tags {
+    function! s:RemoveTags(tagName)
+        if exists('g:my_tags_path') && has_key(g:my_tags_path, a:tagName)
+            call s:RemoveTagsByPath(g:my_tags_path[a:tagName])
+        else
+            if !exists('g:my_tags_path')
+                echomsg 'warning: g:my_python_tags_path not defined'
+            endif
 
-              call s:RemoveTagsByPath(a:tagName)
-          endif
+            call s:RemoveTagsByPath(a:tagName)
+        endif
 
-          echomsg '&tags=' . &tags
-      endfunction
-      "}
+        echomsg '&tags=' . &tags
+    endfunction
+    " }
 
-      " Remove tags file from &tags {
-      function! s:RemoveTagsByPath(tagPath)
-          let tagPathIndex = stridx(&tags, a:tagPath)
-          if tagPathIndex != -1
-              let tagPathEndIndex = tagPathIndex + strlen(a:tagPath)
-              let tagPathSeg1 = strpart(&tags, 0, tagPathIndex)
-              let tagPathSeg2 = strpart(&tags, tagPathEndIndex)
-              let tagPathSeg1Len = strlen(tagPathSeg1)
-              if tagPathSeg1Len > 0 && strpart(tagPathSeg1, tagPathSeg1Len - 1) == ","
-                  if tagPathSeg1Len == 1
-                      let tagPathSeg1 = ""
-                  else
-                      let tagPathSeg1 = strpart(tagPathSeg1, 0, tagPathSeg1Len - 1)
-                  endif
-              endif
-              let &tags = tagPathSeg1 . tagPathSeg2
-          endif
-      endfunction
-      "}
+    " Remove tags file from &tags {
+    function! s:RemoveTagsByPath(tagPath)
+        let tagPathIndex = stridx(&tags, a:tagPath)
+        if tagPathIndex != -1
+            let tagPathEndIndex = tagPathIndex + strlen(a:tagPath)
+            let tagPathSeg1 = strpart(&tags, 0, tagPathIndex)
+            let tagPathSeg2 = strpart(&tags, tagPathEndIndex)
+            let tagPathSeg1Len = strlen(tagPathSeg1)
+            if tagPathSeg1Len > 0 && strpart(tagPathSeg1, tagPathSeg1Len - 1) == ","
+                if tagPathSeg1Len == 1
+                    let tagPathSeg1 = ""
+                else
+                    let tagPathSeg1 = strpart(tagPathSeg1, 0, tagPathSeg1Len - 1)
+                endif
+            endif
+            let &tags = tagPathSeg1 . tagPathSeg2
+        endif
+    endfunction
+    " }
 
-      " Display &tags {
-      function! s:ListTags()
-          echomsg '&tags=' . &tags
-      endfunction
-      "}
+    " Display &tags {
+    function! s:ListTags()
+        echomsg '&tags=' . &tags
+    endfunction
+    " }
 
-      " Add/Remove/List &tags
-      command! -nargs=1 -complete=file AddTags call <SID>AddTags(<f-args>)
-      command! -nargs=1 -complete=file RemoveTags call <SID>RemoveTags(<f-args>)
-      command! -nargs=0 ListTags call <SID>ListTags()
-"   } // General Commands
+    " Add/Remove/List &tags
+    command! -nargs=1 -complete=file AddTags call <SID>AddTags(<f-args>)
+    command! -nargs=1 -complete=file RemoveTags call <SID>RemoveTags(<f-args>)
+    command! -nargs=0 ListTags call <SID>ListTags()
+" } // General Commands
 
-" > Plugin Commands
-"   {
+" Plugin Commands {
 
-" >>  vim-fzf commands
-"     {
-"       [opt, query, dir]
+    " vim-fzf commands {
+        " [opt, query, dir]
         function! s:FZF_Ag_w_args(...)
             let args = copy(a:000)
             if len(args) == 2
@@ -221,14 +249,13 @@ call InitializeDirectories()
             endif
         endfunction
         command! -bang -nargs=* Agg call <SID>FZF_Ag_w_args(<f-args>)
-"     } vim-fzf commands
-"   } Plugin Commands
-" }
+    " } // vim-fzf commands
+" } // Plugin Commands
+" } // Commands
 
 " ================= Key Mappings ====================
-" {
-" > General Key Mappings
-"   {
+" Key Mappings {
+" General Key Mappings {
       let mapleader = ','
       inoremap <silent> jk <Esc>l
 
@@ -237,56 +264,51 @@ call InitializeDirectories()
       nnoremap <C-w>-- 10<C-w>-
       nnoremap <C-w>>> 10<C-w>>
       nnoremap <C-w><< 10<C-w><
-"   } // General Key Mappings
+" } // General Key Mappings
 
-" > Plugin Key Mappings
-"   {
+" Plugin Key Mappings {
 
-" >>  NERDTree Key Mappings
-"     {
+    " NERDTree Key Mappings {
         map <C-e> :NERDTreeToggle<CR>
         map <leader>e :NERDTreeFind<CR>
-"     } NERDTree Key Mappings
+    " } // NERDTree Key Mappings
 
-" >>  vim-highlighter Key Mappings
-"     {
+    " vim-highlighter Key Mappings {
         let HiSet   = '<leader>mm'
         let HiErase = '<leader>md'
         let HiClear = '<leader>mc'
         let HiFind  = '<leader>mf'
-        
+
         " jump key mappings
         nn <leader>mn    <Cmd>Hi><CR>
         nn <leader>mN    <Cmd>Hi<<CR>
         nn <leader>m*    <Cmd>Hi{<CR>
         nn <leader>m#    <Cmd>Hi}<CR>
-        
+
         " find key mappings
         " nn -        <Cmd>Hi/next<CR>
         " nn _        <Cmd>Hi/previous<CR>
         " nn f<Left>  <Cmd>Hi/older<CR>
         " nn f<Right> <Cmd>Hi/newer<CR>
-        
+
         " command abbreviations
         " ca HL Hi:load
         " ca HS Hi:save
-        
+
         " directory to store highlight files
         " let HiKeywords = '~/.vim/after/vim-highlighter'
-        
+
         " highlight colors
         " hi HiColor21 ctermfg=52  ctermbg=181 guifg=#8f5f5f guibg=#d7cfbf cterm=bold gui=bold
         " hi HiColor22 ctermfg=254 ctermbg=246 guifg=#e7efef guibg=#979797 cterm=bold gui=bold
         " hi HiColor30 ctermfg=none cterm=bold guifg=none gui=bold
-"     } vim-highlighter Key Mappings
+    " } // vim-highlighter Key Mappings
 
-" >>  tagbar Key Mappings
-"     {
+    " tagbar Key Mappings {
         nnoremap <silent> <leader>tt :TagbarToggle<CR>
-"     } tagbar Key Mappings
+    " } // tagbar Key Mappings
 
-" >>  FZF Key Mappings
-"     {
+    " FZF Key Mappings {
         function! s:FZF_Ag_cword()
             call fzf#vim#ag(expand('<cword>'), fzf#vim#with_preview(), 0)
         endfunction
@@ -305,15 +327,13 @@ call InitializeDirectories()
         imap <c-x><c-k> <plug>(fzf-complete-word)
         imap <c-x><c-f> <plug>(fzf-complete-path)
         imap <c-x><c-l> <plug>(fzf-complete-line)
-"     } FZF Key Mappings
-
-"   } // Plugin Key Mappings
+    " } // FZF Key Mappings
+" } // Plugin Key Mappings
 " } // Key Mappings
 
 " ================= Auto Commands ====================
-" {
-" > General Auto Commands
-"   {
+" Auto Commands {
+" General Auto Commands {
       function! ResCur()
           if line("'\"") <= line("$")
               silent! normal! g`"
@@ -325,5 +345,5 @@ call InitializeDirectories()
           autocmd!
           autocmd BufWinEnter * call ResCur()
       augroup END
-"   } // General Auto Commands
+" } // General Auto Commands
 " } // Auto Commands
