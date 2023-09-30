@@ -13,6 +13,54 @@ call plug#end()
 " } // Plugins
 
 " ================= Settings ====================
+" Initialize directories {
+function! InitializeDirectories()
+    let parent = $HOME
+    let prefix = 'vim'
+    let dir_list = {
+                \ 'backup': 'backupdir',
+                \ 'views': 'viewdir',
+                \ 'swap': 'directory' }
+
+    if has('persistent_undo')
+        let dir_list['undo'] = 'undodir'
+    endif
+
+    " To specify a different directory in which to place the vimbackup,
+    " vimviews, vimundo, and vimswap files/directories, add the following to
+    " your .vimrc.before.local file:
+    "   let g:spf13_consolidated_directory = <full path to desired directory>
+    "   eg: let g:spf13_consolidated_directory = $HOME . '/.vim/'
+    if exists('g:spf13_consolidated_directory')
+        let common_dir = g:spf13_consolidated_directory . prefix
+    else
+        let common_dir = parent . '/.' . prefix
+    endif
+
+    for [dirname, settingname] in items(dir_list)
+        let directory = common_dir . dirname . '/'
+        if exists("*mkdir")
+            if !isdirectory(directory)
+                call mkdir(directory)
+            endif
+        endif
+        if !isdirectory(directory)
+            echo "Warning: Unable to create backup directory: " . directory
+            echo "Try: mkdir -p " . directory
+        else
+            let directory = substitute(directory, " ", "\\\\ ", "g")
+            exec "set " . settingname . "=" . directory
+        endif
+    endfor
+endfunction
+call InitializeDirectories()
+" }
+" {
+" > Use local options if available
+    if filereadable(expand("~/.vimrc.local"))
+        source ~/.vimrc.local
+    endif
+" }
 " {
 " > General Settings
 "   {
@@ -31,6 +79,9 @@ call plug#end()
 
       set spell                       " Spell checking on
       set hidden                      " Allow buffer switching without saving
+
+      set list
+      set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 "   } // General Settings
 
 " > Plugin Settings
@@ -71,9 +122,9 @@ call plug#end()
 " {
 " > General Commands
 "   {
-      let g:my_tags_path = {
-          \ 'py' : '',
-          \ }
+      "let g:my_tags_path = {
+      "    \ 'py' : '',
+      "    \ }
 
       " Add tags file to &tags {
       function! s:AddTags(tagName)
@@ -160,8 +211,14 @@ call plug#end()
 
 " >>  vim-fzf commands
 "     {
-        function! s:FZF_Ag_w_args(opt, query)
-            call fzf#vim#ag(a:query, a:opt, fzf#vim#with_preview(), 0)
+"       [opt, query, dir]
+        function! s:FZF_Ag_w_args(...)
+            let args = copy(a:000)
+            if len(args) == 2
+                call fzf#vim#ag(args[1], args[0], fzf#vim#with_preview(), 0)
+            elseif len(args) == 3
+                call fzf#vim#ag(args[1], args[0], fzf#vim#with_preview({"dir" : args[2]}), 0)
+            endif
         endfunction
         command! -bang -nargs=* Agg call <SID>FZF_Ag_w_args(<f-args>)
 "     } vim-fzf commands
@@ -174,6 +231,12 @@ call plug#end()
 "   {
       let mapleader = ','
       inoremap <silent> jk <Esc>l
+
+      " for easy resize window
+      nnoremap <C-w>++ 10<C-w>+
+      nnoremap <C-w>-- 10<C-w>-
+      nnoremap <C-w>>> 10<C-w>>
+      nnoremap <C-w><< 10<C-w><
 "   } // General Key Mappings
 
 " > Plugin Key Mappings
