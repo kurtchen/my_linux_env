@@ -12,6 +12,16 @@ call plug#begin()
 call plug#end()
 " } // Plugins
 
+" ================= Options ====================
+" Options {
+    " Specify a different directory in which to place the vimbackup,
+    " vimviews, vimundo, and vimswap files/directories
+    "let g:my_consolidated_directory = $HOME . '/.vim/'
+
+    " Always switch to the repo directory
+    let g:my_autochdir_git_repo = 1
+" }
+
 " ================= Settings ====================
 " Settings {
 " Initialize directories {
@@ -27,13 +37,8 @@ function! InitializeDirectories()
         let dir_list['undo'] = 'undodir'
     endif
 
-    " To specify a different directory in which to place the vimbackup,
-    " vimviews, vimundo, and vimswap files/directories, add the following to
-    " your .vimrc.before.local file:
-    "   let g:spf13_consolidated_directory = <full path to desired directory>
-    "   eg: let g:spf13_consolidated_directory = $HOME . '/.vim/'
-    if exists('g:spf13_consolidated_directory')
-        let common_dir = g:spf13_consolidated_directory . prefix
+    if exists('g:my_consolidated_directory')
+        let common_dir = g:my_consolidated_directory . prefix
     else
         let common_dir = parent . '/.' . prefix
     endif
@@ -82,7 +87,32 @@ call InitializeDirectories()
 
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+    set number
 " } // General Settings
+
+" My Settings {
+    " cd to repo root {
+    function! s:MyCd2RepoRoot(fileName)
+        let topfile = '.git'
+        if len(a:fileName) == 0
+            let dir = getcwd()
+        else
+            let dir = expand(a:fileName)
+        endif
+
+        while dir != '/' && (!isdirectory(dir.'/'.topfile) && !filereadable(dir.'/'.topfile))
+            let dir = fnamemodify(dir, ':h')
+        endwhile
+
+        if isdirectory(dir.'/'.topfile)
+            execute ':lcd '.dir
+        endif
+    endfunc
+    if exists('g:my_autochdir_git_repo') && g:my_autochdir_git_repo == 1
+        autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | call s:MyCd2RepoRoot('%:p:h') | endif
+    endif
+    "}
+" } // My Settings
 
 " Autocomplete Settings {
     " OmniComplete {
@@ -264,6 +294,9 @@ call InitializeDirectories()
       nnoremap <C-w>-- 10<C-w>-
       nnoremap <C-w>>> 10<C-w>>
       nnoremap <C-w><< 10<C-w><
+
+      " Replace current word template
+      nmap <leader>ra :%s/\<<c-r>=expand("<cword>")<cr>\>//<BS>
 " } // General Key Mappings
 
 " Plugin Key Mappings {
@@ -321,6 +354,7 @@ call InitializeDirectories()
         nn <leader>fbt   <Cmd>BTags<CR>
         nn <leader>fbc   :BTags <c-r>=expand('<cword>')<CR><CR>
         nn <leader>fj    <Cmd>Jumps<CR>
+        nn <leader>fq   :JumpsQuery <c-r>=expand('<cword>')<CR><CR>
         nn <leader>fh    <Cmd>History<CR>
         nn <leader>fag   :Ag <c-r>=expand('<cword>')<CR><CR>
         nn <leader>faw   :Agg -w <c-r>=expand('<cword>')<CR><CR>
